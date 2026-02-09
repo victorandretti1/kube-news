@@ -24,7 +24,7 @@ jobs:
       - name: Construção da Imagem Docker
         uses: docker/build-push-action@v3
         with:
-          context: ./src
+          context: /home/victor/kube-news/src
           file: Dockerfile      # relativo ao context
           push: true
           tags: |
