@@ -28,5 +28,7 @@ jobs:
           file: ./src/Dockerfile   # caminho relativo ao repo
           push: true
           tags: |
-            fabriciovoronez/live-kube-news:v1
-            fabriciovoronez/live-kube-news:latest
+           tags: |
+             victorandretti1/live-kube-news:v1
+             victorandretti1/live-kube-news:latest
+
