@@ -1,19 +1,18 @@
 FROM node:18.12.1
 
-# Diretório de trabalho
 WORKDIR /app
 
-# Copia apenas os arquivos de dependência primeiro
+# Instala ferramentas de build necessárias para pacotes nativos
+RUN apt-get update && apt-get install -y build-essential python3 make g++
+
+# Copia arquivos de dependência
 COPY package*.json ./
 
 # Instala dependências com logs detalhados e permissões corretas
 RUN npm install --unsafe-perm --verbose
 
-# Copia o restante do código
+# Copia restante do código
 COPY . .
 
-# Expõe a porta da aplicação
 EXPOSE 8080
-
-# Comando para iniciar a aplicação
 CMD ["node", "server.js"]
