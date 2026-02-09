@@ -1,29 +1,23 @@
-FROM node:18-bullseye
+# Imagem base do Node
+FROM node:18.12.1
 
+# Define o diretório de trabalho dentro do container
 WORKDIR /app
 
-# Ferramentas para build de pacotes nativos
-RUN apt-get update && apt-get install -y \
-    build-essential \
-    python3 \
-    make \
-    g++ \
-    libcairo2-dev \
-    libpango1.0-dev \
-    libjpeg-dev \
-    libgif-dev \
-    librsvg2-dev \
-    && rm -rf /var/lib/apt/lists/*
+# Instala ferramentas de compilação necessárias para pacotes nativos
+RUN apt-get update && apt-get install -y build-essential python3 make g++
 
-# Copia dependências para usar cache de layer
+# Copia os arquivos de dependência (package.json e package-lock.json)
 COPY package*.json ./
 
-# Instala dependências
-RUN npm ci --unsafe-perm --legacy-peer-deps --verbose
+# Instala dependências npm com logs detalhados e permissões corretas
+RUN npm install --unsafe-perm --verbose
 
-# Copia código restante
+# Copia o restante do código da aplicação
 COPY . .
 
+# Expõe a porta que sua aplicação vai rodar
 EXPOSE 8080
 
+# Comando para iniciar a aplicação
 CMD ["node", "server.js"]
