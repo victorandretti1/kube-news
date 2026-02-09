@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Pega o código do repositório
+      # 1. Checkout do código
       - name: Checkout do código
         uses: actions/checkout@v3
 
@@ -20,12 +20,12 @@ jobs:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
 
-      # 3. Build e push da imagem Docker
+      # 3. Construção e Push da Imagem Docker
       - name: Construção e Push da Imagem Docker
         uses: docker/build-push-action@v3
         with:
-          context: ./src       # pasta que contém Dockerfile
-          file: Dockerfile     # relativo ao context
+          context: .               # contexto = raiz do repo
+          file: ./src/Dockerfile   # caminho para Dockerfile a partir da raiz
           push: true
           tags: |
             fabriciovoronez/live-kube-news:v1
