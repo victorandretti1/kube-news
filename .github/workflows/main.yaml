@@ -17,18 +17,16 @@ jobs:
       - name: Login no Docker Hub
         uses: docker/login-action@v2
         with:
-          username: ${{ secrets.DOCKER_HUB_USERNAME }}
-          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}  # seu usuário Docker Hub
+          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}  # token de acesso
 
       # 3. Construção e Push da Imagem Docker
       - name: Construção e Push da Imagem Docker
         uses: docker/build-push-action@v3
         with:
-          context: ./src           # contexto agora é src
-          file: ./src/Dockerfile   # caminho relativo ao repo
+          context: ./src                 # contexto = pasta src
+          file: ./src/Dockerfile         # Dockerfile dentro de src
           push: true
           tags: |
-           tags: |
-             victorandretti1/live-kube-news:v1
-             victorandretti1/live-kube-news:latest
-
+            victorandretti1/live-kube-news:v1
+            victorandretti1/live-kube-news:latest
